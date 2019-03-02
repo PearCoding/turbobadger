@@ -169,7 +169,7 @@ public:
 
 	TBWidgetEventMultiGesture(int target_x, int target_y, float cx, float cy, float dTheta, float dDist, uint16_t numFingers)
 		: TBWidgetEvent(EVENT_TYPE_MULTI_GESTURE, target_x, target_y, 1),
-		  center_x(cx), center_y(cy), dTheta(dTheta), dDist(dDist) 
+		  center_x(cx), center_y(cy), dTheta(dTheta), dDist(dDist)
 	{
 		count = numFingers;
 	}
@@ -177,7 +177,7 @@ public:
 
 /** TBWidgetEventFinger is a subclass of TBWidgetEvent
  *  It is triggered by finger event such as up down or move.
- * 
+ *
  * type is one of:
  *  EVENT_TYPE_FINGER_DOWN,
  *  EVENT_TYPE_FINGER_UP,
@@ -681,6 +681,8 @@ public:
 	inline TBWidget *GetFirstChild() const { return m_children.GetFirst(); }
 	/** Get the widget's last child. */
 	inline TBWidget *GetLastChild() const { return m_children.GetLast(); }
+	/** Check if widget has children. */
+	inline bool HasChildren() const { return m_children.HasLinks(); }
 	/** Create an iterator to iterate through the widget's children, forward. */
 	TBLinkListOf<TBWidget>::Iterator GetIteratorForward() { return m_children.IterateForward(); }
 	/** Create an iterator to iterate through the widget's children, backward. */
