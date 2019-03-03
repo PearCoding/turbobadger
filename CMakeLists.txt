@@ -214,6 +214,12 @@ if (TB_CLIPBOARD_GLFW)
   endif (NOT TB_BUILD_GLFW)
 endif (TB_CLIPBOARD_GLFW)
 
+if (TB_FONT_RENDERER_FREETYPE)
+  find_package(Freetype REQUIRED)
+  include_directories (${FREETYPE_INCLUDE_DIRS})
+  set (EXTRA_LIBS ${EXTRA_LIBS} ${FREETYPE_LIBRARIES})
+endif(TB_FONT_RENDERER_FREETYPE)
+
 if (TB_SYSTEM_SDL2)
   if (NOT TB_BUILD_SDL2 AND NOT EMSCRIPTEN)
     include (FindPkgConfig)
@@ -306,6 +312,13 @@ install (
   PATTERN "test files" EXCLUDE
   PATTERN "*.h"
   )
+
+if(TB_GENERATE_CONFIG)
+install (
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/src/tb/tb_config.h
+  DESTINATION include/tb
+  )
+endif(TB_GENERATE_CONFIG)
 
 # Generate Doxygen documentation
 configure_file (${CMAKE_SOURCE_DIR}/doc/Doxyfile.in ${CMAKE_BINARY_DIR}/doc/Doxyfile)
